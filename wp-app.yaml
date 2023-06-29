@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordpress
+spec: 
+  destination:
+    namespace: wordpress
+    server: https://kubernetes.default.svc
+  project: wordpress
+  source:
+    path: wordpress/
+    repoURL: https://github.com/loydpadgett/wordpress.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

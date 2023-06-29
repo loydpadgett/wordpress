@@ -1,0 +1,21 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: wordpress
+spec:
+  roles:
+    - name: read-sync
+      description: read and sync privileges.
+      policies:
+        - p, proj:wordpress:read-sync, applications, get, wordpress/*, allow
+        - p, proj:wordpress:read-sync, applications, sync, wordpress/*, allow
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  description: Project to configure argocd self-management application.
+  destinations:
+    - namespace: wordpress
+      server: https://kubernetes.default.svc
+  sourceRepos:
+    - https://github.com/loydpadgett/wordpress.git 
